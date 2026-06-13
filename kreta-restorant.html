@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kreta – Authentic Greek Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1B3F72; --blue-light: #2A5BA8;
+      --gold: #C9A84C; --cream: #FAF7F2;
+      --white: #FFFFFF; --text-dark: #1a1a1a; --text-mid: #444;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; color: var(--text-dark); background: var(--cream); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px; background: rgba(27,63,114,0.96); backdrop-filter: blur(6px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 2px; }
+    .nav-logo span { color: var(--white); font-style: italic; font-size: 0.85rem; display: block; letter-spacing: 4px; }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul li a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; transition: color .25s; }
+    nav ul li a:hover { color: var(--gold); }
+    .hero {
+      height: 100vh;
+      background: linear-gradient(160deg, rgba(27,63,114,0.82) 0%, rgba(0,0,0,0.55) 100%),
+                  url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 0 20px;
+    }
+    .hero-eyebrow { color: var(--gold); font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6.5rem); color: var(--white); line-height: 1.05; margin-bottom: 20px; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 1.1rem; max-width: 480px; line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+    .btn { display: inline-block; padding: 16px 42px; background: var(--gold); color: var(--blue); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-size: 0.8rem; border: 2px solid var(--gold); transition: all .3s; }
+    .btn:hover { background: transparent; color: var(--gold); }
+    .btn-outline { background: transparent; color: var(--white); border-color: var(--white); margin-left: 14px; }
+    .btn-outline:hover { background: var(--white); color: var(--blue); }
+    .divider { display: flex; align-items: center; gap: 16px; justify-content: center; margin: 0 auto 48px; }
+    .divider::before, .divider::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold); }
+    .divider span { color: var(--gold); font-size: 1.2rem; }
+    #about { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+    .about-img { background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80') center/cover no-repeat; }
+    .about-text { background: var(--blue); padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .about-text .eyebrow { color: var(--gold); font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; }
+    .about-text h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--white); margin-bottom: 24px; line-height: 1.2; }
+    .about-text p { color: rgba(255,255,255,0.75); line-height: 1.8; font-weight: 300; margin-bottom: 16px; }
+    #menu { padding: 100px 60px; background: var(--cream); text-align: center; }
+    #menu h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: var(--blue); margin-bottom: 12px; }
+    .menu-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 56px; flex-wrap: wrap; }
+    .tab-btn { padding: 10px 28px; border: 2px solid var(--blue); background: transparent; color: var(--blue); font-weight: 700; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all .25s; font-family: 'Lato', sans-serif; }
+    .tab-btn.active, .tab-btn:hover { background: var(--blue); color: var(--white); }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 1100px; margin: 0 auto; }
+    .menu-card { background: var(--white); text-align: left; overflow: hidden; box-shadow: 0 4px 24px rgba(27,63,114,0.07); transition: transform .3s, box-shadow .3s; }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(27,63,114,0.14); }
+    .menu-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .menu-card-body { padding: 24px; }
+    .menu-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--blue); margin-bottom: 8px; }
+    .menu-card-body p { color: var(--text-mid); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+    .menu-card-body .price { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+    #gallery { padding: 100px 60px; background: var(--blue); text-align: center; }
+    #gallery h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: var(--white); margin-bottom: 12px; }
+    #gallery .divider::before, #gallery .divider::after { background: var(--gold); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 240px 240px; gap: 12px; max-width: 1000px; margin: 0 auto; }
+    .gallery-item { overflow: hidden; }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; display: block; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    #testimonials { padding: 100px 60px; background: var(--cream); text-align: center; }
+    #testimonials h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: var(--blue); margin-bottom: 12px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; max-width: 1000px; margin: 0 auto; }
+    .testimonial-card { background: var(--white); padding: 36px 32px; box-shadow: 0 4px 20px rgba(27,63,114,0.07); text-align: left; }
+    .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 16px; }
+    .testimonial-card p { color: var(--text-mid); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+    .testimonial-card .author { color: var(--blue); font-weight: 700; font-size: 0.85rem; }
+    #contact { display: grid; grid-template-columns: 1fr 1fr; }
+    .contact-info { background: var(--blue); padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--white); margin-bottom: 36px; }
+    .contact-item { display: flex; gap: 18px; margin-bottom: 28px; align-items: flex-start; }
+    .contact-icon { font-size: 1.4rem; margin-top: 2px; }
+    .contact-item h4 { color: var(--gold); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+    .contact-item p { color: rgba(255,255,255,0.8); line-height: 1.6; font-weight: 300; }
+    .contact-form { background: var(--white); padding: 80px 64px; }
+    .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--blue); margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group input, .form-group textarea { width: 100%; padding: 14px 18px; border: 1.5px solid #ddd; background: var(--cream); font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--text-dark); outline: none; transition: border-color .25s; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    footer { background: #0f2244; padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); }
+    footer p { color: rgba(255,255,255,0.45); font-size: 0.8rem; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color .25s; }
+    .footer-links a:hover { color: var(--gold); }
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; } nav ul { gap: 20px; }
+      #about, #contact { grid-template-columns: 1fr; }
+      .about-img { height: 320px; }
+      .about-text, .contact-info, .contact-form { padding: 60px 32px; }
+      #menu, #gallery, #testimonials { padding: 70px 24px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: span 1; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; } .form-row { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">KRETA <span>Greek Restaurant</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Reserve</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow">✦ Authentic Greek Cuisine ✦</p>
+    <h1>A Taste of <em>Crete</em><br>in Every Bite</h1>
+    <p>Fresh ingredients, ancient recipes, and warm Mediterranean hospitality — brought straight from the island of Crete to your table.</p>
+    <div>
+      <a href="#menu" class="btn">Explore Menu</a>
+      <a href="#contact" class="btn btn-outline">Reserve a Table</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-img"></div>
+    <div class="about-text">
+      <p class="eyebrow">Our Story</p>
+      <h2>From the Heart<br>of the Aegean</h2>
+      <p>Founded in 2010, Kreta was born out of a deep love for the flavors, aromas, and traditions of the Greek island of Crete.</p>
+      <p>We use only the finest olive oils, fresh herbs, and locally sourced ingredients to create dishes that transport you straight to the Mediterranean coast.</p>
+      <a href="#menu" class="btn" style="margin-top:16px; align-self:flex-start;">View Our Menu</a>
+    </div>
+  </section>
+
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div class="divider"><span>✦</span></div>
+    <div class="menu-tabs">
+      <button class="tab-btn active">Starters</button>
+      <button class="tab-btn">Main Course</button>
+      <button class="tab-btn">Desserts</button>
+      <button class="tab-btn">Drinks</button>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Tzatziki"/>
+        <div class="menu-card-body">
+          <h3>Tzatziki</h3>
+          <p>Creamy Greek yogurt with cucumber, garlic, fresh dill, and extra virgin olive oil.</p>
+          <span class="price">€6.50</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=80" alt="Spanakopita"/>
+        <div class="menu-card-body">
+          <h3>Spanakopita</h3>
+          <p>Traditional spinach and feta cheese pie wrapped in crispy golden phyllo pastry.</p>
+          <span class="price">€7.90</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="Dolmades"/>
+        <div class="menu-card-body">
+          <h3>Dolmades</h3>
+          <p>Tender vine leaves stuffed with seasoned rice, fresh herbs, and a hint of lemon.</p>
+          <span class="price">€8.50</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>Our Atmosphere</h2>
+    <div class="divider"><span>✦</span></div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Interior"/></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Food"/></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Dining"/></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Dishes"/></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&q=80" alt="Salad"/></div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What Our Guests Say</h2>
+    <div class="divider"><span>✦</span></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"The best Greek food I have ever had outside of Greece. The moussaka was absolutely divine!"</p>
+        <span class="author">— Sophie M., Berlin</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Incredible atmosphere and authentic flavors. We will definitely be coming back every week!"</p>
+        <span class="author">— Marco R., Munich</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"A hidden gem! From the warm welcome to the last bite of baklava — everything was perfect."</p>
+        <span class="author">— Anna K., Hamburg</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-info">
+      <h2>Visit Us &<br>Reserve a Table</h2>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div><h4>Address</h4><p>Hauptstraße 42<br>10117 Berlin, Germany</p></div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🕐</span>
+        <div><h4>Opening Hours</h4><p>Mon–Fri: 12:00–23:00<br>Sat–Sun: 11:00–00:00</p></div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <div><h4>Phone</h4><p>+49 30 1234 5678</p></div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <div><h4>Email</h4><p>info@kreta-restaurant.de</p></div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Make a Reservation</h3>
+      <div class="form-row">
+        <div class="form-group"><input type="text" placeholder="Your Name"/></div>
+        <div class="form-group"><input type="email" placeholder="Email Address"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><input type="date"/></div>
+        <div class="form-group"><input type="number" placeholder="Number of Guests" min="1" max="20"/></div>
+      </div>
+      <div class="form-group"><input type="time"/></div>
+      <div class="form-group"><textarea placeholder="Special requests..."></textarea></div>
+      <a href="#" class="btn" style="width:100%; text-align:center; display:block;">Reserve My Table</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">KRETA</div>
+    <p>© 2025 Kreta Greek Restaurant. All rights reserved.<br>Designed by MD Maria Design</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.menu-card, .testimonial-card, .gallery-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
